@@ -8,7 +8,7 @@ function initMap(){
 
 //创建地图函数：
 function createMap(){
-    var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+    var map = new BMap.Map("l-map");//在百度地图容器中创建一个地图
     var point = new BMap.Point(102.634467,32.952394);//定义一个中心点坐标
     map.centerAndZoom(point,5);//设定地图的中心点和坐标并将地图显示在地图容器中
     window.map = map;//将map变量存储在全局
@@ -35,11 +35,6 @@ var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
 map.addControl(ctrl_sca);
 }
 
-//标注点数组
-var markerArr = [
-	{title:"聚会",content:"同学聚会",point:"123.368221|41.911404",isOpen:0,icon:{w:21,h:21,l:46,t:46,x:1,lb:10}},
-	{title:"聚会地点",content:"乐成商务酒店  <a href='javascript:alert(1)'>查看</a> <br/>地址：沈阳皇姑区黑龙江街32号,近北站北出口,文教区,近宁山路 <br/>电话：(024)31222333",point:"123.441929|41.832736",isOpen:1,icon:{w:21,h:21,l:46,t:46,x:1,lb:10}}
-	];
 //创建marker
 function addMarker(){
     for(var i=0;i<markerArr.length;i++){

@@ -1,0 +1,31 @@
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="data.js"></script>
+<script>
+var url = "http://api.map.baidu.com/geocoder/v2/?output=json&ak=02dca64d690595165b65a3259469529b&callback=showLocation&address=";
+var address = "";
+
+for(i = 0; i< classmates.length; i++){
+	if ("男" == classmates[i][1] || "女" == classmates[i][1]){
+		address = classmates[i][2] + classmates[i][3];
+	} else {
+		address = classmates[i][3] + classmates[i][4];
+	}
+	//console.log(address);
+	
+	$.get(url + address + "&name" + classmates[i][0], function(response){
+		console.log(response);
+	});
+}
+var showLocation = function(response){
+	//console.log(response.result.level);
+	//console.log(response.result.location.lng + "|" + response.result.location.lat);
+};
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
