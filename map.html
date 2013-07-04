@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>昌图二高九四级一年六班同学全国分布图</title>
+    <style type="text/css">
+        body, html, #allmap {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+            font-size: 10pt;
+            font-family: monospace;
+        }
+
+        #l-map {
+            height: 100%;
+            width: 80%;
+            float: left;
+            border: none;
+        }
+
+        #r-result {
+            color:#000;
+            height: 100%;
+            width: 20%;
+            float:left;
+            overflow:auto;
+            background-color:#a6c2de;
+            padding;10px;
+        }
+            #r-result .city {
+                float:right;
+
+            }
+        #r-result a,  #r-result a:visited {
+            color:#000;
+            text-decoration:none;
+        }
+        
+        #r-result .o {
+          background-color: #a91d95;
+          color: #fff;
+        }
+        #r-result .o a,#-result .o a:visited {
+	        color: #fff;
+        }
+        #r-result .u {
+        	background-color: #fff;
+	        color: #000;
+        }
+        .r-u {
+            height:50px;
+            cursor:pointer;
+            border:2px solid #a6c2de;
+            border-radius:10px;
+            background-color:#fff;
+            padding: 10px;
+        }
+        
+
+        .iw_poi_title {
+            color: #CC5522;
+            font-size: 14px;
+            font-weight: bold;
+            overflow: hidden;
+            padding-right: 13px;
+            white-space: nowrap;
+        }
+
+        .iw_poi_content {
+            font: 12px arial,sans-serif;
+            overflow: visible;
+            padding-top: 4px;
+            white-space: -moz-pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="http://api.map.baidu.com/api?v=1.5&ak=02dca64d690595165b65a3259469529b"></script>
+    <script src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
+    <script>
+        var index = 0;
+        var myGeo = new BMap.Geocoder();
+        
+        var directions = [];
+        var markers = [];
+        var curves = [];
+        var adds = [
+            ["聚会点", "", "", "辽宁省", "沈阳市", "(024)31222333", "", "沈阳乐成商务酒店"],
+            ["龚艳春", "龚争光", "男", "安徽省", "合肥市", "13966669179", "2835047", ""],
+            ["纪守娟", "", "女", "广东省", "广州市", "13924181099", "", ""],
+            ["门显军", "门金锁", "男", "广东省", "广州市", "18935927599", "16280612", "中铁十三局三公司"],
+            ["王连侠", "", "女", "河北省", "邯郸市", "13731044841", "174782999", ""],
+            ["何亚学", "", "女", "河北省", "廊坊市", "13933920095", "30183119", "河北廊坊市热力总公司"],
+            ["王  猛", "王  伟", "男", "河北省", "秦皇岛", "13383272963", "", ""],
+            ["张宝一", "", "男", "湖南省", "长沙市", "15802675935", "59004985", "中南大学"],
+            ["鲁东斌", "", "男", "吉林省", "四平市", "", "", ""],
+            ["付大伟", "", "女", "吉林省", "长春市", "13232701777", "", ""],
+            ["李春香", "", "女", "辽宁省", "鞍山市", "18841239003", "1450528079", ""],
+            ["刘福成", "", "男", "辽宁省", "八面城", "15330660888", "", ""],
+            ["陈  莹", "陈海波", "女", "辽宁省", "八面城", "", "", ""],
+            ["袁  英", "", "女", "辽宁省", "昌图县", "13464129009", "331924607", ""],
+            ["姚艳平", "", "男", "辽宁省", "昌图县", "", "", ""],
+            ["李  崇", "李  荣", "男", "辽宁省", "大连市", "13204060666", "", ""],
+            ["刘晓平", "", "女", "辽宁省", "大连市", "13478685324", "", ""],
+            ["赵科研", "", "男", "辽宁省", "大连市", "13898467673", "550468160", "大连国合建设集团"],
+            ["张军廷", "", "男", "辽宁省", "大连市", "13940914985", "30883233", "大连海事大学"],
+            ["李丽娜", "", "女", "辽宁省", "大连市", "13998499850", "", ""],
+            ["岳丽鸿", "", "女", "辽宁省", "大连市", "18642622092", "461688691", ""],
+            ["杨智广", "", "男", "辽宁省", "阜新市", "13841887654 ", "22459403", "辽宁工程技术大学"],
+            ["丁福龙", "", "男", "辽宁省", "葫芦岛", "15898251855", "11939677", ""],
+            ["徐慧影", "", "女", "辽宁省", "锦州市", "13352186833", "23876183", ""],
+            ["秦  策", "", "女", "辽宁省", "辽阳市", "18741965559", "", ""],
+            ["于  凤", "", "女", "辽宁省", "沈阳市", "13002424970", "393815274", "沈阳第34中学"],
+            ["何  平", "", "女", "辽宁省", "沈阳市", "13147804281", "1637022291", ""],
+            ["郑右非", "", "女", "辽宁省", "沈阳市", "13236630582", "303070344", ""],
+            ["李丽丽", "", "女", "辽宁省", "沈阳市", "13322463500", "", ""],
+            ["周双全", "", "男", "辽宁省", "沈阳市", "13504982418", "", ""],
+            ["李明东", "", "男", "辽宁省", "沈阳市", "13840097055", "1059303746", "马三家劳教所"],
+            ["杨  柳", "", "女", "辽宁省", "沈阳市", "13889235615", "260540583", "沈阳农业大学"],
+            ["李晓静", "", "女", "辽宁省", "沈阳市", "18740050306", "", "沈阳理工大学"],
+            ["施艳光", "", "女", "辽宁省", "沈阳市", "18940026237", "", ""],
+            ["魏  来", "", "女", "辽宁省", "铁岭市", "13188696907", "24059042", ""],
+            ["白雪东", "", "男", "辽宁省", "铁岭市", "13941037776", "3030400", ""],
+            ["王海燕", "", "女", "辽宁省", "铁岭市", "13941085455", "", "铁岭市第五中学"],
+            ["杨占军", "", "男", "辽宁省", "铁岭市", "15104103410", "", ""],
+            ["刘  阳", "", "女", "辽宁省", "铁岭市", "15898066492", "", ""],
+            ["王  闯", "王迎春", "男", "内蒙古", "满洲里", "13948098435", "6177240048", "满洲里海关"],
+            ["于海东", "", "男", "内蒙古", "乌海市", "13847353165", "396643638", "内蒙古日报社"],
+            ["费殿波", "", "男", "上海市", "长宁区", "18101872198", "37991633", "中国东方航空"],
+            ["周  海", "", "男", "浙江省", "台州市", "13967682455", "", ""],
+            ["陈  岩", "", "男", "重庆市", "万州区", "13896290110", "112577695", ""],
+            ["潘丽萍", "", "女", "重庆市", "渝北区", "13883641980", "39045846", "重庆市公安局"],
+            ["蔡利峰", "", "男", "钓鱼岛", "", "", "", ""],
+            ["曹  爽", "", "男", "钓鱼岛", "", "", "", ""],
+            ["陈海涛", "", "男", "钓鱼岛", "", "", "", ""],
+            ["耿  政", "", "男", "新疆维吾尔自治区", "", "", "", ""],
+            ["焦丽恒", "", "女", "新疆维吾尔自治区", "", "", "", ""],
+            ["刘鹏宇", "", "男", "新疆维吾尔自治区", "", "", "", ""],
+            ["刘玉研", "", "男", "新疆维吾尔自治区", "", "", "", ""],
+            ["梅雪来", "", "男", "新疆维吾尔自治区", "", "", "", ""],
+            ["曲洪涛", "", "男", "新疆维吾尔自治区", "", "", "", ""],
+            ["史立涛", "", "男", "新疆维吾尔自治区", "", "", "", ""],
+            ["王洪刚", "", "男", "新疆维吾尔自治区", "", "", "", ""],
+            ["王金辉", "", "女", "新疆维吾尔自治区", "", "", "", ""],
+            ["王小龙", "", "男", "新疆维吾尔自治区", "", "", "", ""],
+            ["张云祥", "", "男", "新疆维吾尔自治区", "", "", "", ""],
+        ];
+    </script>
+</head>
+<body onload="bdGEO()">
+    <div id="l-map"></div>
+    <div id="r-result">
+        <div id="result">
+            <div class="r-u o" style="position: fixed" onclick='sc()' onmouseover='d(0)' onmouseout='d(1)'>
+                <center style="font-size:14pt">昌图二高九四级一年六班同学全国分布图</center>
+            </div>
+            <div class="r-u o"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var map = new BMap.Map("l-map");
+        sc();
+        map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+        map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+        map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
+        map.disableContinuousZoom();
+        map.enableKeyboard();//启用键盘上下左右键移动地图
+        map.setMinZoom(5);
+        
+        //地图控件添加函数：
+        function addMapControl() {
+            //向地图中添加缩放控件
+            var ctrl_nav = new BMap.NavigationControl({ anchor: BMAP_ANCHOR_TOP_LEFT, type: BMAP_NAVIGATION_CONTROL_LARGE });
+            map.addControl(ctrl_nav);
+            //向地图中添加缩略图控件
+            var ctrl_ove = new BMap.OverviewMapControl({ anchor: BMAP_ANCHOR_BOTTOM_RIGHT, isOpen: 0 });
+            map.addControl(ctrl_ove);
+            //向地图中添加比例尺控件
+            var ctrl_sca = new BMap.ScaleControl({ anchor: BMAP_ANCHOR_BOTTOM_LEFT });
+            map.addControl(ctrl_sca);
+        }
+        
+        addMapControl();//向地图添加控件
+
+		function d(flag){
+			for(x = 0; x < curves.length; x++){
+				if (0 == flag){
+					curves[x].hide();
+				} else {
+					curves[x].show();
+				}
+			}
+		}		function sc(){
+			map.centerAndZoom(new BMap.Point(102.634467, 32.952394), 5);
+		}
+        function bdGEO() {
+            var add = adds[index];
+            geocodeSearch(add,index);
+            index++;
+        }
+        function s(p1, p2, i) {
+        	if (null != p1 && null != p2) {
+	        	map.setZoom(12);
+				map.panTo(new BMap.Point(p1, p2));
+        	}
+            
+        }
+        function o(obj,_index) {
+        	$(obj).removeClass("u");
+            $(obj).addClass("o");
+            s(null,null,_index);
+            
+        }
+        function u(obj,_index) {
+        	$(obj).removeClass("o");
+            $(obj).addClass("u");
+            for (n = 0; n < markers.length; n++) {
+            	markers[n].show();
+            }
+        }
+        function geocodeSearch(add,index) {
+            if (index < adds.length) {
+                setTimeout(window.bdGEO, 600);
+                //bdGEO();
+            }
+            console.log(add[3]);
+            myGeo.getPoint(add[3] + add[4], function (point) {
+                if (point) {
+                    $("#result").append("<div id='_" + index + "' class='r-u' onmouseover='o(this," + index + ")' onmouseout='u(this," + index + ")' onclick='s(" + point.lng + "," + point.lat + "," + index + ")'><a href='javascript:s(" + point.lng + "," + point.lat + "," + index + ")'><b>" + add[0].replace(" ","_") + "</b>" + (index == 0 ? "" : ("(" + index + ")")) + "</a>" + "<div>电话:" + add[5] + "</div>" + "<div class='city'>" + (add[3] + add[4]) + "</div><div>" + add[7] + "</div></div>");
+                    $("#_"+index).animate({ scrollTop: 60000 }, 'slow'); ;
+                    var marker = new BMap.Marker(new BMap.Point(point.lng + Math.random()/200, point.lat + Math.random()/200));
+                    markers.push(marker);
+                    var label = new BMap.Label(add[0], { "offset": new BMap.Size(-12, -22) });
+                    //map.centerAndZoom(new BMap.Point(point.lng, point.lat), 6);
+                    map.panTo(point);
+
+                    marker.setLabel(label);
+                    map.addOverlay(marker);
+                    label.setStyle({
+                        borderColor: "#808080",
+                        color: "#333",
+                        cursor: "pointer",
+                        padding: "2px 4px",
+                        borderRadius: "4px"
+                    });
+                    marker.hide();
+                    marker.show();
+
+					$("#r-result").scrollTop(10000000);
+                    var iw = createInfoWindow(add);
+
+                    var json = add;
+
+                    (function () {
+                        var index = add;
+                        var _iw = createInfoWindow(add);
+                        var _marker = marker;
+                        _marker.addEventListener("click", function () {
+                            this.openInfoWindow(_iw);
+                        });
+                        _iw.addEventListener("open", function () {
+                            _marker.getLabel().hide();
+                        })
+                        _iw.addEventListener("close", function () {
+                            _marker.getLabel().show();
+                        })
+                        label.addEventListener("click", function () {
+                            _marker.openInfoWindow(_iw);
+                        })
+                        if (!!json.isOpen) {
+                            label.hide();
+                            _marker.openInfoWindow(_iw);
+                        }
+                    })();
+
+                    /////////////////////
+                    var contextMenu = new BMap.ContextMenu();
+                    var txtMenuItem = [
+                      {
+                          text: '放大',
+                          callback: function () { map.zoomIn() }
+                      },
+                      {
+                          text: '缩小',
+                          callback: function () { map.zoomOut() }
+                      },
+                      {
+                          text: '放置到最大级',
+                          callback: function () { map.setZoom(18) }
+                      },
+                      {
+                          text: '查看全国',
+                          callback: function () { map.setZoom(6) }
+                      },
+                      {
+                          text: '在此添加标注',
+                          callback: function (p) {
+                              var marker = new BMap.Marker(p), px = map.pointToPixel(p);
+                              map.addOverlay(marker);
+                          }
+                      }
+                    ];
+
+
+                    for (var i = 0; i < txtMenuItem.length; i++) {
+                        contextMenu.addItem(new BMap.MenuItem(txtMenuItem[i].text, txtMenuItem[i].callback, 100));
+                        if (i == 1 || i == 3) {
+                            contextMenu.addSeparator();
+                        }
+                    }
+                    map.addContextMenu(contextMenu);
+                    /////////////////////
+                    //showDirection(point);
+                    //directions.push(point);
+                    directions.push(new BMap.Point(marker.getPosition().lng, marker.getPosition().lat));
+                    //console.log(index);
+
+                    if (index == 57) {
+                    sc();
+                        showDirection();
+                    }
+                }
+            }, add[3]);//中国
+        }
+
+        var m = 0;
+        function showDirection() {
+            if (m < directions.length) {
+                setTimeout(sd, 100);
+            }            
+        }
+        function sd() {
+            var point = directions[m];
+
+            var p1 = new BMap.Point(point.lng, point.lat);
+            var p2 = new BMap.Point(123.443211, 41.828187);
+            var points = [p1, p2];
+            
+            //var p = new BMap.Point((p1.lng + p2.lng) / 2, (p1.lat + p2.lat) / 2);
+            //map.setZoom(9);
+            //map.setViewport(p1, p2);
+            //map.panTo(p);
+
+            var curve = new BMapLib.CurveLine(points, { strokeColor: "blue", strokeWeight: 3, strokeOpacity: 0.9 }); //创建弧线对象
+            map.addOverlay(curve); //添加到地图中
+            curve.enableEditing(); //开启编辑功能
+            curves.push(curve);
+            m++;
+            showDirection();
+        }
+        //创建InfoWindow
+        function createInfoWindow(i) {
+            var json = i;
+            var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json[2] + "'>" + json[0] + "</b><div class='iw_poi_content'>" + "电话:" + json[5] + " QQ:" + json[6] + "</div>");
+            return iw;
+        }
+</script>
+</body>
+</html>
