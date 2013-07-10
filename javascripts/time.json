@@ -1,0 +1,117 @@
+
+{
+    "timeline":
+    {
+        "headline":"~~~",
+        "type":"default",
+		"startDate":"1994,1",
+		"text":"<i><span class='c1'>16</span> @ <span class='c2'>1994～2013</span></i>",
+		"asset":
+        {
+            "media":"images/memory/notes.png",
+            "credit":"<a href='http://dribbble.com/shots/221641-iOS-Icon'>iOS Icon by Asher</a>",
+            "caption":""
+        },
+        "date": [
+            {
+                "startDate":"1994,9,1",
+                "headline":"开始上高中了喽",
+                "text":"这一年，我们从四面八方来到了八面城，来到了昌图二高，开始了我们的高中生活",
+                "asset":
+                {
+                    "media":"images/1.6.gif",
+                    "credit":"456",
+                    "caption":"123"
+                }
+            },
+            {
+                "startDate":"1994,9,1",
+                "headline":"高一（6）班",
+                "text":"我们有缘分到了高一（6）班，白老师成为了我们第一个高中时期的班主任！",
+                "asset":
+                {
+                    "media":"http://vimeo.com/22439234",
+                    "credit":"456",
+                    "caption":"123"
+                }
+            },
+            {
+                "startDate":"1995,1",
+                "headline":"新年联欢会",
+                "text":"要放假了，大家一起过新年！",
+                "asset":
+                {
+                    "media":"http://vimeo.com/22439234",
+                    "credit":"456",
+                    "caption":"123"
+                }
+            },
+            {
+                "startDate":"1995,3",
+                "headline":"悲催的文理分班开始了",
+                "text":"从这一年开始，我们因文理分班的缘故同学被分开了",
+                "asset":
+                {
+                    "media":"http://vimeo.com/22439234",
+                    "credit":"456",
+                    "caption":"123"
+                }
+            },
+            {
+                "startDate":"1997,7",
+                "headline":"我们高考了",
+                "text":"这一年，我们开始了高考，有的同学考上了理想的学校；还有的同学不得不为了自己理想的学校，再次苦战准备！",
+                "asset":
+                {
+                    "media":"assets/img/shots/sidebar_s3.jpg",
+                    "credit":"<a href='http://dribbble.com/shots/401334-Sidebar'>by Chris Brauckmuller</a>",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2013,7,20",
+                "headline":"相聚沈阳",
+                "text":"",
+                "asset":
+                {
+                    "media":"assets/img/shots/shot_1298590416.jpg",
+                    "credit":"<a href='http://dribbble.com/shots/120088-Gmail-Pokki-Final-Ui'>by Justalab</a>",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2012,7",
+                "headline":"我们创建了班级群",
+                "text":"",
+                "asset":
+                {
+                    "media":"http://vimeo.com/23237102",
+                    "credit":"",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2013,10",
+                "headline":"Developed a Gmail Client",
+                "text":"",
+                "asset":
+                {
+                    "media":"assets/img/shots/shot_1298590416.jpg",
+                    "credit":"<a href='http://dribbble.com/shots/120088-Gmail-Pokki-Final-Ui'>by Justalab</a>",
+                    "caption":""
+                }
+            },
+            {
+                "startDate":"2013,7,20",
+                "headline":"相识卄年同学聚会",
+                "text":"这一年，我们相聚奉天",
+                "asset":
+                {
+                    "media":"assets/img/shots/pet___you.jpg",
+                    "credit":"<a href='http://dribbble.com/shots/444003-Pet-You'>by Nikita Lebedev</a>",
+                    "caption":""
+                }
+            }
+        ]
+    }
+}
